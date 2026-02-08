@@ -1,0 +1,193 @@
+<section class="banner">
+    <div class="banner-top">
+        <h3 class="banner-top-title">{{section.settings.banner_top_title}}</h3>
+        <p class="banner-top-text">{{ section.settings.banner_top_subtitle }}</p>
+        {% if section.settings.button_content != blank %}
+            <a href="{{ section.settings.button_link }}">{{section.settings.button_content}}&#8594;</a>
+        {% endif %}
+    </div>
+
+    <div class="banner-body">
+        <h1 class="banner-body-title">{{ section.settings.banner_body_title }}</h1>
+        <p class="banner-body-description">{{ section.settings.banner_body_description }}</p>
+        {% if section.settings.shop_now_btn_content != blank %}
+            <a href="{{ section.settings.banner_body_button_link }}" class="banner-body-btn">
+                {{section.settings.banner_body_button_content  }}&#8594;
+            </a>
+        {% endif %}
+
+    </div>
+
+    <div class="banner-footer">
+        <p class="footer-text">{{ section.settings.footer_text }}</p>
+    </div>
+
+</section>
+
+ {% stylesheet %}
+
+ .banner{
+    background: #fff; /*temporary*/
+    width: 100%;
+    font-family: inherit, 'Courier New', Courier, monospace;
+ }
+
+ /*======TOP BAR======*/
+
+ .banner-top{
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    justify-content: space-between;
+    line-height: 1.2;
+    position: relative;
+ }
+
+ .banner-top-title{
+    font-weight: 600;
+    font-size: 14px;
+    color: black;
+ }
+
+ .banner-top-text{
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    color: black;
+ }
+
+.banner-top a {
+    background: #FFF544;
+    color: #000;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.banner-body {
+    padding: 80px 40px;
+    max-width: 600px;
+}
+
+.banner-body-title{
+    font-size: 40px;
+    font-weight: 700;
+    padding: 16px 8px;
+    margin-bottom: 16px;
+}
+
+.banner-body-descritpion{
+    font-size: 16px;
+    font-weight: 400;
+    padding: 16px 8px;
+    color: #000;
+    margin: 16px;
+    line-height: 140%;
+}
+
+.banner-body-btn{
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    margin: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: background 0.3s ease;
+    text-transform: uppercase;
+}
+
+.banner-body-btn:hover{
+    background: #222;
+}
+
+.banner-footer{
+    background: #F5F5F5;
+    padding: 8px 16px;
+    text-align: center;
+}
+
+.footer-text {
+    font-weight: 400 ;
+    color: #000;
+    letter-spacing: 0;
+}
+
+
+
+
+
+
+
+ {% endstylesheet %}
+
+
+{% schema %}
+    {
+        "name": "banner",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "banner_top_title",
+                "label": "Title",
+                "default": "TISSO VISON"
+            }, 
+            {
+                "type": "text",
+                "id": "banner_top_subtitle",
+                "label": "Subtitle",
+                "default": "Find the ideal gift for your loved ones."
+            },
+            {
+                "type": "text",
+                "id": "button_content",
+                "label": "Button Content",
+                "default": "CHOOSE GIFT"
+            },
+            {
+                "type": "url",
+                "id": "button_link",
+                "label": "Button Link"
+            },
+            {
+                "type": "text",
+                "id": "banner_body_title",
+                "label": "Banner Body Title",
+                "default": "The Gift Guide"
+            },
+            {
+                "type": "text",
+                "id": "shop_now_btn_content",
+                "label": "Banner Body Description",
+                "default": "Discover Joy : Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gift to \ndelight your loved ones this holiday season."
+            },
+             {
+                "type": "text",
+                "id": "banner_body_button_content",
+                "label": "Banner Body Button Content",
+                "default": "Shop now"
+            },
+            {   
+                "type": "url",
+                "id": "banner_body_button_link",
+                "label": "Banner Body Button",
+            },
+            {
+                "type": "text",
+                "id": "footer_text",
+                "label": "Footer text",
+                "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+            }
+
+        ]
+    }
+
+
+{% endschema %}

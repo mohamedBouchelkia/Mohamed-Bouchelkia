@@ -1,0 +1,98 @@
+<div class="grid">
+    {% comment %}
+      <div class="product-modal">
+        <div class="product-modal_content">
+            <button class="modal-close">x</button>
+            <h3 class="product-name"></h3>
+            <h3 class="product-price"></h3>
+            <p class="product-description"></p>
+            {% comment %}
+              add here code for color and size
+            {% endcomment %}
+            <button type="submit" name="add" class="btn add-to-cart">
+                {{ 'products.product.add_to_cart' | t }}
+            </button>
+        </div>
+    </div>
+    {% endcomment %}
+    
+
+    <div class="product-grid">
+    {% for i in (1..6) %}
+        {% assign product_key = 'product_' | append: i %}
+        {% assign product_item = section.settings[product_key] %}
+
+        {% if product_item != blank %}
+        {% if product_item.handle != blank %}
+            {% assign product = product_item %}
+        {% else %}
+            {% assign product = all_products[product_item] %}
+        {% endif %}
+
+        {% if product %}
+            <div class="product-card">
+            <img
+                src="{{ product.featured_image | image_url: width: 500 }}"
+                alt="{{ product.title }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
+                loading="lazy"
+            >
+            </div>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
+ {% stylesheet %}
+    .grid{
+        display: flex;
+        background: #fff;
+        gap: 42.48px;
+        width: 80%; /*check this later*/
+        align-items: center;
+    }
+    .product-grid{
+        display: grid;
+        grid-template-columns: repeat(minmax(3, 1fr));
+    }
+    .product-card{
+        margin: 16px;
+        padding: 8px 16px;
+        border: none;
+    }
+/* If necessary
+    .product-card:hover{
+
+    }
+*/
+    .product-card img {
+        width: 100%;
+        height: auto;
+
+    }
+ {% endstylesheet %}
+
+
+{% schema %}
+    {
+        "name": "product-grid",
+        "tag": "section",
+        "settings": [
+            {"type": "product", "id": "product_1", "label": "Product 1"},
+            {"type": "product", "id": "product_2", "label": "Product 2"},
+            {"type": "product", "id": "product_3", "label": "Product 3"},
+            {"type": "product", "id": "product_4", "label": "Product 4"},
+            {"type": "product", "id": "product_5", "label": "Product 5"},
+            {"type": "product", "id": "product_6", "label": "Product 6"},
+
+        ], 
+        "presets": [
+            {
+                "name": "Grid"
+            }
+
+        ]
+    }
+{% endschema %}
