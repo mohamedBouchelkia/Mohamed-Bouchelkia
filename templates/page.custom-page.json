@@ -1,16 +1,8 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "banner": {
+    "banner_AUaA8w": {
       "type": "banner",
+      "name": "Banner",
       "settings": {
         "banner_top_title": "TISSO VISON",
         "banner_top_subtitle": "Find the ideal gift for your loved ones.",
@@ -23,17 +15,18 @@
         "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
     },
-    "grid": {
+    "grid_RKQB3K": {
       "type": "grid",
+      "name": "Grid",
       "settings": {
         "product_1": "black-leather-bag",
         "product_2": "blue-silk-tuxedo",
         "product_3": "chequered-red-shirt",
         "product_4": "classic-leather-jacket",
         "product_5": "classic-varsity-top",
-        "product_6": "led-high-tops"
+        "product_6": "dark-denim-top"
       }
     }
   },
-  "order": ["banner", "grid"]
+  "order": ["banner_AUaA8w", "grid_RKQB3K"]
 }

@@ -1,4 +1,4 @@
-<section class="banner">
+<div class="banner">
     <div class="banner-top">
         <h3 class="banner-top-title">{{section.settings.banner_top_title}}</h3>
         <p class="banner-top-text">{{ section.settings.banner_top_subtitle }}</p>
@@ -22,7 +22,7 @@
         <p class="footer-text">{{ section.settings.footer_text }}</p>
     </div>
 
-</section>
+</div>
 
  {% stylesheet %}
 
@@ -82,7 +82,7 @@
     margin-bottom: 16px;
 }
 
-.banner-body-descritpion{
+.banner-body-description{
     font-size: 16px;
     font-weight: 400;
     padding: 16px 8px;
@@ -186,6 +186,11 @@
                 "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
             }
 
+        ],
+        "presets": [
+            {
+                "name": "Banner"
+            }
         ]
     }
 
