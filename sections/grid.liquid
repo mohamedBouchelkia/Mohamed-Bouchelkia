@@ -1,6 +1,8 @@
       <div class="product-modal" hidden>
         <div class="product-modal-content">
-            <button class="modal-close">x</button>
+            <button class="modal-close">
+              <img src={{ 'icon-close.svg' | asset_url }} alt="" width="" height="" class="icon-close">
+            </button>
 
               <div class="modal-layout-top">
                 <div class="modal-image">
@@ -93,7 +95,7 @@
     const price = modal.querySelector('.modal-price');
     const title = modal.querySelector('.modal-title');
     const description = modal.querySelector('.modal-description');
-    const image = modal.querySelector('img');
+    const image = modal.querySelector('.modal-image img');
     const colors = modal.querySelector('.color-items');
     const sizes = modal.querySelector('.modal-size-options');
     const variantInput = modal.querySelector('.product-variant-id');
@@ -147,7 +149,7 @@
   });
 
   document.addEventListener('click', (e)=>{
-    if (e.target.matches('.modal-close')){
+    if (e.target.matches('.modal-close img')){
       document.querySelector('.product-modal').hidden = true;
     }
   });
@@ -155,6 +157,7 @@
 
 
  {% stylesheet %}
+ /*====== Grid CSS=======*/
     .grid{
         display: flex;
         justify-content: center;
@@ -209,7 +212,10 @@
     .product-detals-btn:hover{
       transition:ease 0.3s  ;
     }
-    .product-modal{
+
+
+/*========= POPUP CSS ===========*/
+ .product-modal{
       background: rgba(0, 0, 0, 0.45);
       inset: 0;
       position: fixed;
@@ -229,46 +235,42 @@
 
     .product-modal-content{
       background: #fff;
-      width: 420px;
-      max-width: 90vw;
+      width: 30%;
+      height: 75%;
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: 16px;
+      padding: 3rem 2rem;
     }
     .modal-close{
       position: absolute;
-      top: 1%;
-      right: 1%;
+      width: 7%;
+      height: 7%;
+      top: 2%;
+      right: 2%;
       background: none;
       border: none;
-      font-size: 12px;
       cursor: pointer;
-    }
-
-    .modal-layout{
-      display: flex;
-      flex-direction: column;
-      height: 100%;
     }
 
     .modal-layout-top{
       display: flex;
-      flex-direction: row;
-      width: 100%;
+      height: 100%;
     }
 
     .modal-image{
-      width: 40%;
-      height: auto;
-      overflow: hidden;
+      max-width: 100%;
+      height: 100%;
+      width: 45%;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
     .modal-image img{
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
 
@@ -276,8 +278,9 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      justify-content: space-between;
-      margin-left: 2%;
+      padding: 0 1rem;
+      justify-content: flex-end;
+      vertical-align: bottom;
     }
 
     .modal-title{
@@ -300,17 +303,16 @@
       margin-top: 5%;
       margin-bottom: 0;
     }
-    .modal-description{
+    .modal-info p{
+      margin-bottom: 0 !important;
       font-weight: 200;
       word-wrap: break-word;
       overflow-wrap: break-word;
       letter-spacing: 0;
-      bottom: 0;
     }
     .modal-colors{
       display: flex;
       flex-direction: column;
-      gap: 8px;
     }
 
     .modal-colors label{
@@ -372,7 +374,7 @@
       color: #fff;
       border: none;
       width: 100%;
-      padding: 12px;
+      padding: 1%;
       font-size: 1rem;
       font-weight: 400;
       cursor: pointer;

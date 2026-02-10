@@ -8,14 +8,28 @@
     </div>
 
     <div class="banner-body">
-        <h1 class="banner-body-title">{{ section.settings.banner_body_title }}</h1>
-        <p class="banner-body-description">{{ section.settings.banner_body_description }}</p>
-        {% if section.settings.shop_now_btn_content != blank %}
-            <a href="{{ section.settings.banner_body_button_link }}" class="banner-body-btn">
-                {{section.settings.banner_body_button_content  }}&#8594;
-            </a>
-        {% endif %}
 
+        <div class="banner-body-top" 
+            style="background: url('{{ 'background_img_01.png' | asset_url }}');">
+        </div>
+
+        <div class="banner-body-bottom">
+
+            <div class="banner-body-bottom-left">
+                <h1 class="banner-body-title">{{ section.settings.banner_body_title }}</h1>
+                <p class="banner-body-description">{{ section.settings.banner_body_description }}</p>
+                {% if section.settings.shop_now_btn_content != blank %}
+                    <a href="{{ section.settings.banner_body_button_link }}" class="banner-body-btn">
+                        {{section.settings.banner_body_button_content  }}&#8594;
+                    </a>
+                {% endif %}
+            </div>
+
+            <div class="banner-body-bottom-right" 
+                 style="background: url('{{ 'background_img_2.png' | asset_url }}');">
+            </div>
+
+        </div>
     </div>
 
     <div class="banner-footer">
@@ -30,6 +44,7 @@
     background: #fff; /*temporary*/
     width: 100%;
     font-family: inherit, 'Courier New', Courier, monospace;
+    height: 90vh;
  }
 
  .banner-top{
@@ -69,9 +84,39 @@
     margin-right: 10%;
 }
 
+/*========= Banner Body ==============*/
+
 .banner-body {
-    padding: 80px 40px;
-    max-width: 600px;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+.banner-body-top {
+    height: 50%;
+    width: 100%;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.banner-body-bottom{
+    display: flex;
+    height: 50%;
+}
+.banner-body-bottom-left{
+    width: 45%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.banner-body-bottom-right{
+    width: 55%;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .banner-body-title{
@@ -158,7 +203,7 @@
             },
             {
                 "type": "text",
-                "id": "shop_now_btn_content",
+                "id": "banner_body_description",
                 "label": "Banner Body Description",
                 "default": "Discover Joy : Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gift to \ndelight your loved ones this holiday season."
             },
