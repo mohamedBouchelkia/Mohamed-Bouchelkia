@@ -1,6 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "banner_AUaA8w": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "banner_xE7Wx6": {
       "type": "banner",
       "name": "Banner",
       "settings": {
@@ -15,7 +32,7 @@
         "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
     },
-    "grid_RKQB3K": {
+    "grid_AhWX6y": {
       "type": "grid",
       "name": "Grid",
       "settings": {
@@ -28,5 +45,5 @@
       }
     }
   },
-  "order": ["banner_AUaA8w", "grid_RKQB3K"]
+  "order": ["main", "banner_xE7Wx6", "grid_AhWX6y"]
 }

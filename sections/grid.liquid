@@ -24,10 +24,15 @@
                 </select>
               </div>
 
-
-                <button class="btn add-to-cart">
-                  {{ 'products.product.add_to_cart' | t }}
-                </button>
+              <div class="add-to-cart">
+                <form action="{{ routes.cart_add_url }}" method="post" class="add-to-cart-form">
+                  <input type="hidden" name="id" class="product-variant-id"
+                  value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="btn add-to-cart">
+                    {{ 'products.product.add_to_cart' | t }}
+                  </button>
+                </form>
+              </div>
             </div>            
         </div>
 
@@ -66,6 +71,7 @@
                       data-image = "{{ product.featured_image | image_url : width: 600}}"
                       data-colors = "{{ product.options_by_name['Color'].values | join: ',' }}"
                       data-sizes = "{{ product.options_by_name['Size']. values | join: ','}}"
+                      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                     >
                       +
                     </button>  
@@ -90,6 +96,8 @@
     const image = modal.querySelector('img');
     const colors = modal.querySelector('.color-items');
     const sizes = modal.querySelector('.modal-size-options');
+    const variantInput = modal.querySelector('.product-variant-id');
+    variantInput.value = button.dataset.variantId || button.dataset.firstVariantId;
 
     price.textContent = button.dataset.price;
     title.textContent = button.dataset.title;
@@ -162,8 +170,6 @@
         background-color: #fff;
     }
 
-
-
     .image-wrapper{
       position: relative;
     }
@@ -197,14 +203,14 @@
       transition:ease 0.3s  ;
     }
     .product-modal{
+      background: rgba(0, 0, 0, 0.45);
+      inset: 0;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #fff;
       display: flex;
-      align-items: center;
       justify-content: center;
       z-index: 9999;
       padding: 1%;
@@ -225,8 +231,8 @@
     }
     .modal-close{
       position: absolute;
-      top: -32px;
-      right: 0;
+      top: 1%;
+      right: 1%;
       background: none;
       border: none;
       font-size: 12px;
@@ -263,6 +269,8 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      justify-content: space-between;
+      margin-left: 2%;
     }
 
     .modal-title{
@@ -289,9 +297,8 @@
       font-weight: 200;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      margin: 0;
       letter-spacing: 0;
-      margin-top: auto;
+      bottom: 0;
     }
     .modal-colors{
       display: flex;
