@@ -29,7 +29,7 @@
                   <input type="hidden" name="id" class="product-variant-id"
                   value="{{ product.selected_or_first_available_variant.id }}">
                   <button type="submit" class="btn add-to-cart">
-                    {{ 'products.product.add_to_cart' | t }}
+                    {{ 'products.product.add_to_cart' | t }}&#8594;
                   </button>
                 </form>
               </div>
@@ -128,6 +128,13 @@
 
     sizes.innerHTML = '';
     if(button.dataset.sizes){
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'Choose your size';
+      defaultOption.selected = true;
+      defaultOption.disabled = true;
+      sizes.appendChild(defaultOption);
+
       button.dataset.sizes.split(',').forEach(size =>{
         const option = document.createElement('option');
         option.value = size;
@@ -306,6 +313,11 @@
       gap: 8px;
     }
 
+    .modal-colors label{
+      font-size: 14px;
+      color: #000;
+    }
+
     .color-items{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -336,10 +348,40 @@
     }
 
     .modal-size{
+      margin-top: 2%;
 
     }
-    .modal-sizes{
+    .modal-size label{
+      display: block;
+      margin-bottom: 0;
+      padding: 0;
+      font-weight: 400;
+      color: #000;
+      font-size: 16px;
+    }
+    .modal-size-options{
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #000;
+      font-size: 1rem;
+      cursor: pointer;
+    }
 
+    .add-to-cart{
+      background: #000;
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      position: relative;
+      margin-top: auto;
+      margin-bottom: 0;
+      box-sizing: border-box;
     }
     
  {% endstylesheet %}
