@@ -61,12 +61,13 @@
                       class="product-details-btn"
                       style="left: {{ position_x }}%; top: {{ position_y }}%"
                       data-title = "{{ product.title }}"
-                      data-price = "{{ product.price | money_without_currency }}"
+                      data-price = "{{ product.price | money_without_currency}}{{ localization.country.currency.symbol }}"
                       data-description = "{{ product.description }}"
                       data-image = "{{ product.featured_image | image_url : width: 600}}"
                       data-colors = "{{ product.options_by_name['Color'].values | join: ',' }}"
                       data-sizes = "{{ product.options_by_name['Size']. values | join: ','}}"
                       data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                      data-product-json={{ product | json | escape }}
                     >
                       +
                     </button>  
@@ -93,6 +94,10 @@
     const sizes = modal.querySelector('.modal-size');
     const variantInput = modal.querySelector('.product-variant-id');
     variantInput.value = button.dataset.variantId || button.dataset.firstVariantId;
+    
+    colors.innerHTML='';
+    const productData = JSON.parse(button.dataset.productJson);
+    modal.dataset.productJson = button.dataset.productJson;
 
     price.textContent = button.dataset.price;
     title.textContent = button.dataset.title;
@@ -114,11 +119,26 @@
       });
     }
 
+  const updateVariant = () =>{
+      const activeColor = modal.querySelector('.color-item.active .color-name')?.textContent.trim();
+      const selectedSize = sizes.value;
+
+      if (activeColor && selectedSize){
+        const variant = productData.variants.find(v=>{
+          return v.options.includes(activeColor) && v.options.includes(selectedSize);
+        });
+        if (variant){
+          variantInput.value = variant.id;
+        }
+      }
+  };
+
     colors.addEventListener('click', (e)=>{
       const item = e.target.closest('.color-item');
       if (!item) return;
       colors.querySelectorAll('.color-item').forEach(c=> c.classList.remove('active'));
       item.classList.add('active');
+      updateVariant();
     });
 
     sizes.innerHTML = '';
@@ -137,6 +157,7 @@
         sizes.appendChild(option);
       });
     }
+    sizes.addEventListener('change', updateVariant);
     modal.hidden = false;
   
   });
@@ -144,6 +165,65 @@
   document.addEventListener('click', (e)=>{
     if (e.target.matches('.modal-close img')){
       document.querySelector('.product-modal').hidden = true;
+    }
+  });
+
+  // Adding soft winter jacket when Size = m and color = black
+  document.addEventListener('submit', function(e){
+    const cartForm = e.target.closest('.add-to-cart-form');
+    if (!cartForm) return;
+    const modal = cartForm.closest('.product-modal');
+    if (!modal) return;
+
+    const activeColorElement = modal.querySelector('.color-item.active .color-name');
+    const sizeSelect = modal.querySelector('.modal-size');
+
+    // Get selected color and size
+    const selectedColor = activeColorElement ? activeColorElement.textContent.trim().toLowerCase() : ''; 
+    const selectedSize = sizeSelect ? sizeSelect.value.trim().toLowerCase() : '';
+
+    // Check selectedColor and selectedSize Values
+    if(selectedColor === 'black' && selectedSize === 'm'){
+      e.preventDefault();
+      const formData = new FormData(cartForm);
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData,
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+      })
+      .then(response =>{
+        if (!response.ok) throw new Error ('Failed to add the product');
+        return response.json();
+      })
+      // Adding the soft winter jacket with it's ID, here we add the soft winter jack Medium and Black
+      .then(()=>{
+        const softWinterJacketId = 47726235353323;
+        return fetch('/cart/add.js', {
+          method : 'POST',
+          headers : {
+            'Content-Type' : 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body : JSON.stringify({
+            id : softWinterJacketId,
+            quantity : 1
+          })
+        });
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error ('Failed to add the soft winter jacket');
+        }
+        return response.json();
+      })
+      .then(()=>{
+        window.location.href = '/cart';
+      })
+      .catch(err=>{
+        console.error('Add auto error :', err);
+        window.location.href = '/cart';
+      });
     }
   });
 </script>
