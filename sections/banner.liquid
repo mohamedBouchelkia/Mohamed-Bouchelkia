@@ -1,10 +1,28 @@
 <div class="banner">
     <div class="banner-top">
+        <div class="burger-menu">
+            <button class="burger-btn" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="{{routes.root_url}}">Home</a></li>
+                    <li><a href="{{ routes.collections_url }}">Catalog</a></li>
+                    <li><a href="{{ routes.account_url }}">Account</a></li>
+                </ul>
+            </nav>
+        </div>
         <h3 class="banner-top-title">{{section.settings.banner_top_title}}</h3>
         <p class="banner-top-text">{{ section.settings.banner_top_subtitle }}</p>
         {% if section.settings.button_content != blank %}
-            <a href="{{ section.settings.button_link }}">{{section.settings.button_content}}&#8594;</a>
+            <a class="banner-top-button" href="{{ section.settings.button_link }}">{{section.settings.button_content}}&#8594;</a>
         {% endif %}
+    </div>
+    <div class="banner-top-mobile">
+        <h1 class="banner-body-title-mobile">{{ section.settings.banner_body_title }}</h1>
+        <p class="banner-body-description-mobile">{{ section.settings.banner_body_description_mobile }}</p>
     </div>
 
     <div class="banner-body">
@@ -28,6 +46,12 @@
 
             <div class="banner-body-bottom-right" 
                  style="background: url('{{ 'background_img_2.png' | asset_url }}');">
+                {% if section.settings.banner_body_button_content != blank %}
+                    <a href="{{ section.settings.banner_body_button_link }}" class="banner-body-btn-mobile">
+                        {{section.settings.banner_body_button_content  }}
+                        &xrarr;
+                    </a>
+                {% endif %}
             </div>
 
         </div>
@@ -39,8 +63,45 @@
 
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const burgerBtn = document.querySelector('.burger-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+
+        burgerBtn.addEventListener('click', function(){
+            mobileNav.classList.toggle('show');
+            burgerBtn.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e){
+            if(!burgerBtn.contains(e.target) && !mobileNav.contains(e.target)){
+                mobileNav.classList.remove('show');
+                burgerBtn.classList.remove('active');
+            }
+        });
+    })
+</script>
+
  {% stylesheet %}
-/**********DESKTOP**************/
+/***** Hidding other sections components ******/ 
+.announcement-bar{
+    display: none !important;
+}
+
+.header {
+    display: none !important;
+}
+
+/***** Customized burger menu in the banner-op for mobile *****/
+@media (min-width : 768px){
+    .burger-menu,
+    .banner-top-mobile,
+    .banner-body-btn-mobile{
+        display: none;
+    }
+}
+
+/**********DESKTOP**************/ 
  .banner{
     background: #fff; /*temporary*/
     width: 100%;
@@ -71,7 +132,7 @@
     color: black;
  }
 
-.banner-top a {
+.banner-top-button {
     background: #FFF544;
     color: #000;
     padding: 8px 16px;
@@ -135,7 +196,7 @@
     line-height: 140%;
 }
 
-.banner-body-btn {
+.banner-body-btn{
     display: flex;              
     align-items: center;        
     justify-content: center;   
@@ -213,8 +274,138 @@
 }
 
 /************ MOBILE ***********/
+@media (max-width : 767px){
+.banner-top-text,
+.banner-top-button,
+.banner-body-top,
+.banner-body-title,
+.banner-body-description,
+.banner-body-bottom-left{
+    display: none;
+}
+
+.banner-body{
+    height: auto;
+}
+.burger-menu{
+    position: absolute;
+    left: 2%;
+    display: block;
+}
+
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: none;
+    width: 200px; /*change it late to %*/
+    z-index: 9999;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-nav li {
+    border-bottom: 1px solid #000;
+}
+
+.mobile-nav li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+}
+.mobile-nav.show{
+    display: block;
+    width: 100%;
+    background: #fff;
+}
+
+.mobile-nav li a {
+    background: none;
+}
+
+.burger-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.burger-btn span{
+    display: block;
+    height: 2px;
+    width: 25px;
+    background-color: #000;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+.banner-top{
+     justify-content: center;
+}
+
+.banner-top-mobile{
+    height: 50%;
+    width: 100%;
+    background-color: #fff;
+    justify-content: center;
+    text-align: center;
+}
+.banner-body-title-mobile{
+    font-family: 'Jost', sans-serif;
+    margin-top: 10%;
+    color: #000;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.banner-body-description-mobile{
+    font-family: 'Jost', sans-serif;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+}
 
 
+.banner-body-bottom-right {
+    width: 110%;                  
+    height: 250px;                
+    display: flex;                
+    justify-content: center;    
+    align-items: center;       
+    flex-direction: column;       
+    background-size: cover;   
+    background-position: center;  
+    background-repeat: no-repeat;
+    padding: 0;
+    box-sizing: border-box;
+    margin-left: -5%;            
+}
+.banner-body-btn-mobile {
+    display: flex;              
+    align-items: center;        
+    justify-content: center;   
+    gap: 10px;                  
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 400;
+    text-transform: uppercase;
+    width: 30%;
+    box-sizing: border-box;
+    position: relative;
+    }
+}
+@media(max-width : 480px){
+    .banner-body-btn-mobile {
+        width: 40%;
+    }
+}
 
 
  {% endstylesheet %}
@@ -259,6 +450,12 @@
                 "id": "banner_body_description",
                 "label": "Banner Body Description",
                 "default": "Discover Joy : Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gift to \ndelight your loved ones this holiday season."
+            },
+            {
+                "type": "text",
+                "id": "banner_body_description_mobile",
+                "label": "Banner Body Description",
+                "default": "Discover Joy : Your Ultimate Holiday Gift Destination."
             },
             {
                 "type": "text",
