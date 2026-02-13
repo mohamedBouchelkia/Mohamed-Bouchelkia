@@ -79,7 +79,7 @@
             mobileNav.classList.toggle('show');
             burgerBtn.classList.toggle('active');
         });
-        
+
         // Close the mobile menu if clicking outside of the menu or button
         document.addEventListener('click', function(e){
             if(!burgerBtn.contains(e.target) && !mobileNav.contains(e.target)){
@@ -423,12 +423,20 @@
 		box-sizing: border-box;
 		position: relative;
 	}
+    .banner-body-btn-mobile:hover{
+    	background: #FFF544;
+	    color: #000;
+    }
 }
 
 @media(max-width : 480px) {
 	.banner-body-btn-mobile {
 		width: 40%;
 	}
+    .banner-body-btn-mobile:hover{
+    	background: #FFF544;
+	    color: #000;
+    }
 }
 {% endstylesheet %}
 
